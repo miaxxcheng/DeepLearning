@@ -18,13 +18,15 @@ with open(file_path, 'r') as f:
 # Define a filter condition
 def filter_condition(bus):
     categories = bus.get("categories")
-    if categories is not None and "Restaurant" in categories :
+    city = bus.get("city")
+    state = bus.get("state")
+    if categories is not None and city is not None and state is not None and "Restaurant" in categories and "Belleville" in city and state == "IL":
         return True
     return False
 
 # Apply the filter and create a new list with filtered data
 filtered_data = [bus for bus in data if filter_condition(bus)]
-print(filtered_data)
+print(len(filtered_data))
 
 # Print the filtered data
 with open('filtered_data.json', 'w') as f:
