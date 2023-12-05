@@ -1,33 +1,31 @@
-#import pandas as pd
 import json
-import os
 
-script_directory = os.path.dirname(os.path.realpath(__file__))
-os.chdir(script_directory)
+file_path = 'yelp_academic_dataset_business.json'
 
-file_path = "yelp_academic_dataset_business.json"
+# Initialize an empty list to store individual JSON objects
+data = []
 
-with open(file_path, 'r') as file:
-    # Read each line in the file
-    lines = file.readlines()
+# Read the JSON file line by line
+with open(file_path, 'r') as f:
+    for line in f:
+        try:
+            # Try to load each line as a JSON object
+            json_object = json.loads(line)
+            data.append(json_object)
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
 
-# Initialize an empty list to store the JSON objects
-yelp_data = []
+# Define a filter condition
+def filter_condition(bus):
+    categories = bus.get("categories")
+    if categories is not None and "Restaurant" in categories :
+        return True
+    return False
 
-# Iterate over each line and load the JSON object
-for line in lines:
-    try:
-        # Attempt to load the JSON object
-        business = json.loads(line)
-        
-        # Check if "Restaurants" is in the categories
-        categories = business.get("categories", "")
-        if categories is not None and "Restaurants" in categories:
-            yelp_data.append(business)
+# Apply the filter and create a new list with filtered data
+filtered_data = [bus for bus in data if filter_condition(bus)]
+print(filtered_data)
 
-    except json.JSONDecodeError:
-        print("Error decoding JSON on this line:", line)
-
-# Now, yelp_data contains only the businesses with "Restaurants" in their categories
-for business in yelp_data:
-    print(business)
+# Print the filtered data
+with open('filtered_data.json', 'w') as f:
+    json.dump(filtered_data, f, indent=2)
