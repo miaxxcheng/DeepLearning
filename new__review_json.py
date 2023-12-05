@@ -1,28 +1,40 @@
 import json
 
-def merge_json_by_business_id(business_json_file, review_json_file, output_file):
-    # Read the contents of the business JSON file
-    with open(business_json_file, 'r') as file1:
-        business_data = {item['business_id']: item['name'] for item in [json.loads(line) for line in file1]}
+def merge_reviews_with_names(business_file, review_file, output_file):
+    # Read the business data from the first file
+    try:
+        with open(business_file, 'r') as business_file:
+            business_data = {item['business_id']: item['name'] for line in business_file if (item := json.loads(line))}
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON in business file: {e}")
+        return
 
-    # Read the contents of the review JSON file
-    with open(review_json_file, 'r') as file2:
-        # Read and parse each line as a separate JSON object
-        review_data = [json.loads(line) for line in file2]
+    # Read the reviews from the second file
+    try:
+        with open(review_file, 'r') as review_file:
+            reviews_data = [json.loads(line) for line in review_file]
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON in review file: {e}")
+        return
 
-    # Add the 'name' from the business file to the review file based on 'business_id'
-    for review in review_data:
+    # Merge reviews with business names
+    merged_reviews = []
+    for review in reviews_data:
         business_id = review.get('business_id')
         if business_id in business_data:
             review['business_name'] = business_data[business_id]
+            merged_reviews.append(review)
 
-    # Write the combined data to a new JSON file
+    # Write the merged data to a new JSON file
     with open(output_file, 'w') as output_file:
-        json.dump(review_data, output_file, indent=2)
+        json.dump(merged_reviews, output_file, indent=2)
 
-        
-business_json_file = 'yelp_academic_dataset_business.json'
-review_json_file = 'yelp_academic_dataset_review.json'
-output_file = 'new_yelp_academic_dataset_review.json'
 
-merge_json_by_business_id(business_json_file, review_json_file, output_file)
+# Example usage
+
+business_file = 'new_filtered_data_belleville.json'
+review_file = 'yelp_academic_dataset_review.json'
+output_file = 'new_yelp_academic_dataset_review_belleville3.json'
+
+merge_reviews_with_names(business_file, review_file, output_file)
+
