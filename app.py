@@ -20,23 +20,23 @@ import json
 #     return text
 
 def get_json_text(json_docs):
-    print(json_docs)
     text = ""
     for json_doc in json_docs:
-        print(json_doc)
-        json_doc = json_doc.read()
-        json_doc_data = json.load(json_doc)
-        text += json_doc_data.get('text', '')
+        json_file = json_doc.read()
+        json_text = json_file.decode("utf-8")
+        text += json_text
     return text
 
+
 def get_text_chunks(text):
-    text_splitter = CharacterTextSplitter(
-        separator="\n",
-        chunk_size=1000,
-        chunk_overlap=200,
-        length_function=len
-    )
-    chunks = text_splitter.split_text(text)
+    # text_splitter = CharacterTextSplitter(
+    #     separator="}, \n{",
+    # )
+    chunks = text.split("},")
+    #chunks = text_splitter.split_text(text)
+    # for each in chunks:
+    #     print(each)
+    #     print("CHUNK")
     return chunks
 
 
@@ -93,16 +93,14 @@ def main():
     with st.sidebar:
         st.subheader("Your documents")
         json_docs = st.file_uploader(
-            "Upload your JSONs here and click on 'Process'", accept_multiple_files=True, type="json")
+            "Upload your JSONs here and click on 'Process'", accept_multiple_files=True)
         if st.button("Process"):
             with st.spinner("Processing"):
-                print(json_docs)
                 # get json text
                 raw_text = get_json_text(json_docs)
-                print(raw_text)
+                #print(raw_text)
                 # get the text chunks
                 text_chunks = get_text_chunks(raw_text)
-
                 # create vector store
                 vectorstore = get_vectorstore(text_chunks)
 
