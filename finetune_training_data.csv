@@ -1,4 +1,4 @@
-id,user_input,chatbot_answer
+id,prompt,completion
 0,Where can I find all-you-can-eat buffets in the area?,'Feast Haven Buffet' and 'Buffet Bonanza' are popular spots for all-you-can-eat buffets with a wide variety of dishes.
 1,Tell me about the best place to get gelato.,'Gelato Bliss' is the go-to place for delicious and authentic Italian gelato. Their flavors are sure to satisfy your sweet tooth.
 2,What's the best place for traditional breakfast dishes?,"'Homestyle Breakfast Haven' is known for its traditional breakfast options, including hearty classics like pancakes, bacon, and eggs."
