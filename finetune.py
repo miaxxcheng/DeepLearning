@@ -95,4 +95,3 @@ openai.api_key = "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"
 #ft-yonsei-univ-2023-12-07-20-58-51
 
 
-

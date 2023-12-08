@@ -11,6 +11,8 @@ from htmlTemplates import css, bot_template, user_template
 from langchain.llms import HuggingFaceHub
 import json
 
+#model_name = "ft:babbage-002:yonsei-univ::8TIWfiFc"
+
 # def get_pdf_text(pdf_docs):
 #     text = ""
 #     for pdf in pdf_docs:
@@ -48,7 +50,10 @@ def get_vectorstore(text_chunks):
 
 
 def get_conversation_chain(vectorstore):
-    llm = ChatOpenAI()
+    #llm = ChatOpenAI()
+    # llm = ChatOpenAI(model_name="ft:babbage-002:yonsei-univ::8TIWfiFc")
+    llm = ChatOpenAI(model_name="ft:gpt-3.5-turbo-0613:yonsei-univ::8TSSIaTr")
+    #llm = ChatOpenAI(model_name="gpt-3.5-turbo")
     # llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
 
     memory = ConversationBufferMemory(
