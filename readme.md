@@ -2,7 +2,7 @@
 
 ## Introduction
 ------------
-ChatEats is a Python application that allows you to chat with a chatbot that processes yelp reviews from json files. You can ask questions about restaurant reviews and get tailored recommendations without having to scroll and parse through all the reviews manually. We specifically used a subset of a [yelp dataset](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset) from Kaggle as the custom dataset for the model. We fine-tuned the gpt-3.5-turbo model with 100+ question-answer pairs to tailor the chatbot to our specific use case. The base of the app comes from the [ask-multiple-pdfs repository](https://github.com/alejandro-ao/ask-multiple-pdfs).
+ChatEats is a Python application that allows you to chat with a chatbot that processes yelp reviews from JSON files. You can ask questions about restaurant reviews and get tailored recommendations without having to scroll and parse through all the reviews manually. We specifically used a subset of a [yelp dataset](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset) from Kaggle as the custom dataset for the model. We fine-tuned the gpt-3.5-turbo model with 100+ question-answer pairs to tailor the chatbot to our specific use case. The base of the app comes from the [ask-multiple-pdfs repository](https://github.com/alejandro-ao/ask-multiple-pdfs).
 
 ## Dependencies and Installation
 ----------------------------
@@ -33,6 +33,6 @@ To use the ChatEats App, follow these steps:
 
 3. The application will launch in your default web browser, displaying the user interface.
 
-4. Load multiple PDF documents into the app by following the provided instructions.
+4. Load multiple JSON files into the app by following the provided instructions.
 
-5. Ask questions in natural language about the loaded PDFs using the chat interface.
+5. Ask questions in natural language about the reviews or get recommendations using the chat interface.
